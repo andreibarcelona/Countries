@@ -133,21 +133,30 @@ public void reviewButtonClick()
   // - The information is displayed in the outputLabel as text.
 }
 
-public void quizButtonClick()
-{
-  outputLabel.setText("");
-  Country c = countryArray[index];
+private boolean questionAsked = false; // Flag to track if question has been asked
 
-  if (input.getText().equalsIgnoreCase(c.getName()))
-  {
-    System.out.println("correct!");
-    outputLabel.setText("correct!");
+public void quizButtonClick() {
+  if (!questionAsked) {
+    // Show the question to the user
+    outputLabel.setText("What is the name of the country?");
+    questionAsked = true;  // Mark that the question has been asked
+  } else {
+    // Check the answer
+    Country c = countryArray[index];
+    
+    if (input.getText().equalsIgnoreCase(c.getName())) {
+      System.out.println("correct!");
+      outputLabel.setText("Correct!");
+    } else {
+      System.out.println("Incorrect! The correct answer is " + c.getName() + ".");
+      outputLabel.setText("Incorrect! The correct answer is " + c.getName() + ".");
+    }
+
+    // Reset the questionAsked flag so that next time it will ask a new question
+    questionAsked = false;
   }
-  else 
-  {
-    System.out.println("Incorrect! The correct answer is " + c.getName() + ".");
-    outputLabel.setText("Incorrect! The correct answer is " + c.getName() + "."); 
-  }
+}
+
 
   // Pre-condition:
   // - The index variable exists and points to a valid entry in countryArray.
@@ -162,7 +171,7 @@ public void quizButtonClick()
   // - If the user’s answer matches the country name (case-insensitive), the output label displays "correct!".
   // - If the user’s answer is incorrect, the output label displays "Incorrect! The correct answer is [country name]."
   // - A corresponding message ("correct!" or "Incorrect!") is printed to the console.
-}
+
 
 
 
